@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\ShortUrl;
+
+class ShortUrlRepository
+{
+    public function create(string $originalUrl): ShortUrl
+    {
+        return ShortUrl::create([
+            'original_url' => $originalUrl,
+        ]);
+    }
+
+    public function findByCode(string $code): ?ShortUrl
+    {
+        return ShortUrl::where('code', $code)->first();
+    }
+}
