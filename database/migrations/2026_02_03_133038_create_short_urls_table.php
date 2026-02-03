@@ -6,24 +6,17 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-   public function up(): void
-{
-    Schema::create('short_urls', function (Blueprint $table) {
-        $table->bigIncrements('id');
-        $table->string('code')->unique()->index();
-        $table->text('original_url');
-        $table->unsignedBigInteger('clicks')->default(0);
-        $table->timestamps();
-    });
-}
+    public function up(): void
+    {
+        Schema::create('short_urls', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('code')->nullable()->unique()->index();
+            $table->text('original_url');
+            $table->unsignedBigInteger('clicks')->default(0);
+            $table->timestamps();
+        });
+    }
 
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('short_urls');
