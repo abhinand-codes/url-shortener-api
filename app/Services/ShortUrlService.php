@@ -24,4 +24,8 @@ class ShortUrlService
 
         return $shortUrl;
     }
+    public function getStats(string $code): ShortUrl
+{
+    return $this->repository->findByCodeOrFail($code);
+}
 }

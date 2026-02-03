@@ -17,4 +17,10 @@ class ShortUrlRepository
     {
         return ShortUrl::where('code', $code)->first();
     }
+
+    public function findByCodeOrFail(string $code): ShortUrl
+{
+    return ShortUrl::where('code', $code)->firstOrFail();
+}
+
 }

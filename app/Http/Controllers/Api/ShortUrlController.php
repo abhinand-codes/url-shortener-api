@@ -28,4 +28,12 @@ class ShortUrlController extends Controller
             'short_url' => url($shortUrl->code),
         ], 201);
     }
+
+    public function stats(string $code)
+{
+    $shortUrl = $this->service->getStats($code);
+
+    return new \App\Http\Resources\ShortUrlStatsResource($shortUrl);
+}
+
 }
