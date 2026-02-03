@@ -26,4 +26,19 @@ class StoreShortUrlRequest extends FormRequest
     ];
 }
 
+public function updateOriginalUrl(string $code, string $originalUrl): ShortUrl
+{
+    $shortUrl = $this->findByCodeOrFail($code);
+    $shortUrl->update(['original_url' => $originalUrl]);
+
+    return $shortUrl;
+}
+
+public function deleteByCode(string $code): void
+{
+    $shortUrl = $this->findByCodeOrFail($code);
+    $shortUrl->delete();
+}
+
+
 }

@@ -19,8 +19,21 @@ class ShortUrlRepository
     }
 
     public function findByCodeOrFail(string $code): ShortUrl
-{
-    return ShortUrl::where('code', $code)->firstOrFail();
-}
+    {
+        return ShortUrl::where('code', $code)->firstOrFail();
+    }
+
+    public function updateOriginalUrl(string $code, string $originalUrl): ShortUrl
+    {
+        $shortUrl = $this->findByCodeOrFail($code);
+        $shortUrl->update(['original_url' => $originalUrl]);
+        return $shortUrl;
+    }
+
+    public function deleteByCode(string $code): void
+    {
+        $shortUrl = $this->findByCodeOrFail($code);
+        $shortUrl->delete();
+    }
 
 }

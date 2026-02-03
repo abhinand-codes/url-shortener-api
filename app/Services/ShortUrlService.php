@@ -24,8 +24,19 @@ class ShortUrlService
 
         return $shortUrl;
     }
+
     public function getStats(string $code): ShortUrl
-{
-    return $this->repository->findByCodeOrFail($code);
-}
+    {
+        return $this->repository->findByCodeOrFail($code);
+    }
+
+    public function update(string $code, string $originalUrl): ShortUrl
+    {
+        return $this->repository->updateOriginalUrl($code, $originalUrl);
+    }
+
+    public function delete(string $code): void
+    {
+        $this->repository->deleteByCode($code);
+    }
 }

@@ -36,4 +36,28 @@ class ShortUrlController extends Controller
     return new \App\Http\Resources\ShortUrlStatsResource($shortUrl);
 }
 
+public function update(
+    \App\Http\Requests\UpdateShortUrlRequest $request,
+    string $code
+) {
+    $shortUrl = $this->service->update(
+        $code,
+        $request->validated()['original_url']
+    );
+
+    return response()->json([
+        'code' => $shortUrl->code,
+        'original_url' => $shortUrl->original_url,
+        'short_url' => url($shortUrl->code),
+    ]);
+}
+
+public function destroy(string $code)
+{
+    $this->service->delete($code);
+
+    return response()->json(null, 204);
+}
+
+
 }
